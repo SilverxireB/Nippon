@@ -1,3 +1,19 @@
+export interface BudgetItem {
+  id: string;
+  category: 'fixed' | 'activity' | 'spending';
+  description: string;
+  amount: number; // in TL
+  amountJpy?: number;
+  date?: string;
+  isSpent: boolean;
+}
+
+export interface BudgetData {
+  targetBudget: number;
+  exchangeRate: number; // 1 TL = ? JPY
+  items: BudgetItem[];
+}
+
 export interface Activity {
   time: string;
   description: string;

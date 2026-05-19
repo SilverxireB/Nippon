@@ -4,10 +4,11 @@ import { itineraryData } from './data';
 import { Header } from './components/Header';
 import { HomeView } from './components/HomeView';
 import { CityView } from './components/CityView';
+import { BudgetView } from './components/BudgetView';
 import { CurrencyConverter } from './components/CurrencyConverter';
 
 export default function App() {
-  const [currentCityId, setCurrentCityId] = useState<'home' | string>('home');
+  const [currentCityId, setCurrentCityId] = useState<'home' | 'budget' | string>('home');
 
   const activeCity = itineraryData.cities.find(c => c.id === currentCityId);
   const cityNames = itineraryData.cities.map(c => ({ id: c.id, name: c.name }));
@@ -36,6 +37,16 @@ export default function App() {
               transition={{ duration: 0.3 }}
             >
               <HomeView itinerary={itineraryData} onCityChange={setCurrentCityId} />
+            </motion.div>
+          ) : currentCityId === 'budget' ? (
+            <motion.div
+              key="budget"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <BudgetView />
             </motion.div>
           ) : activeCity ? (
             <motion.div
