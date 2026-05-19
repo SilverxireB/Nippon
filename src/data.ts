@@ -2,62 +2,49 @@ import { Itinerary } from './types';
 
 export const itineraryData: Itinerary = {
   title: "JAPONYA GEZİ REHBERİ",
-  dates: "20 Mayıs - 1 Haziran 2026",
+  dates: "21 Mayıs - 1 Haziran 2026",
   cities: [
     {
       id: "osaka",
       name: "OSAKA",
       hotel: "Vessel Inn Namba",
-      dates: "20 - 23 Mayıs",
+      dates: "21 - 24 Mayıs",
       imageUrl: "https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&q=80&w=1600", 
       color: "#ef4444", 
       info: {
         weather: "24°C / 16°C",
-        currency: "1 JPY ≈ 0.23 TL",
+        currency: "1 JPY ≈ 0.29 TL",
         transport: "ICOCA / Nankai",
         timezone: "+6 Saat"
       },
       days: [
         {
-          date: "20 Mayıs",
-          dayName: "Çarşamba",
-          title: "Varış & İlk Keşif",
-          activities: [
-            { time: "12:40 - 14:00", description: "KIX Havalimanı Varış, Pasaport ve Bavul", category: "travel", mapQuery: "Kansai International Airport", coordinates: { lat: 34.434, lng: 135.244 } },
-            { time: "14:00 - 15:00", description: "Şehre Transfer (Nankai Rapi:t treni ile Namba)", category: "travel", mapQuery: "Nankai Namba Station", coordinates: { lat: 34.664, lng: 135.502 } },
-            { time: "15:00 - 15:45", description: "Otel Check-in ve Bavul Bırakma", category: "checkin", mapQuery: "Vessel Inn Namba", coordinates: { lat: 34.668, lng: 135.501 } },
-            { time: "15:45 - 16:45", description: "Namba Yasaka Shrine (Aslan Tapınağı)", category: "sightseeing", mapQuery: "Namba Yasaka Jinja", coordinates: { lat: 34.661, lng: 135.496 } },
-            { time: "16:45 - 18:00", description: "Mutfak Caddesi (Sennichimae Doguyasuji)", category: "shopping", mapQuery: "Sennichimae Doguyasuji Shopping Street", coordinates: { lat: 34.665, lng: 135.504 } },
-            { time: "18:00 - 20:00", description: "Dotonbori Keşfi (Glico Adam, Sokak Lezzetleri)", category: "sightseeing", mapQuery: "Dotonbori", coordinates: { lat: 34.668, lng: 135.501 } },
-            { time: "20:00 - 21:30", description: "Akşam Yemeği (Osaka Halal Wagyu Steak Yakiniku Furusato)", category: "food", mapQuery: "Osaka Halal Wagyu Steak Yakiniku Furusato", coordinates: { lat: 34.667, lng: 135.506 } },
-            { time: "21:30 - 22:30", description: "Hozenji Yokocho (Yosunlu Heykele Su Dökme)", category: "sightseeing", mapQuery: "Hozenji Yokocho", coordinates: { lat: 34.668, lng: 135.502 } }
-          ]
-        },
-        {
           date: "21 Mayıs",
           dayName: "Perşembe",
-          title: "USJ & Doğum Günü",
+          title: "Japonya'ya Giriş & Doğum Günü",
           activities: [
-            { time: "08:00 - 09:00", description: "USJ'ye Yolculuk (JR Hattı)", category: "travel", mapQuery: "Universal-City Station", coordinates: { lat: 34.6678, lng: 135.4385 } },
-            { time: "09:00 - 18:30", description: "Universal Studios Japan (Nintendo World, Harry Potter vb.)", category: "leisure", mapQuery: "Universal Studios Japan", coordinates: { lat: 34.6654, lng: 135.4323 } },
-            { time: "13:00 - 14:00", description: "USJ İçi Öğle Yemeği", category: "food", mapQuery: "Universal Studios Japan restaurants", coordinates: { lat: 34.6654, lng: 135.4323 } },
-            { time: "18:30 - 20:00", description: "Universal CityWalk", category: "leisure", mapQuery: "Universal CityWalk Osaka", coordinates: { lat: 34.6680, lng: 135.4360 } },
-            { time: "20:30 - 22:30", description: "Gizem'in Doğum Günü Yemeği (Namba/Shinsaibashi)", category: "food", mapQuery: "Shinsaibashi restaurants", coordinates: { lat: 34.6738, lng: 135.5019 } }
+            { time: "12:40 - 14:00", description: "KIX Havalimanı Varış", category: "travel", mapQuery: "Kansai International Airport", coordinates: { lat: 34.434, lng: 135.244 } },
+            { time: "14:00 - 15:00", description: "Şehre Transfer (Nankai Rapi:t)", category: "travel", mapQuery: "Nankai Namba Station", coordinates: { lat: 34.664, lng: 135.502 } },
+            { time: "15:00 - 16:00", description: "Otel Check-in (Vessel Inn Namba)", category: "checkin", mapQuery: "Vessel Inn Namba", coordinates: { lat: 34.668, lng: 135.501 } },
+            { time: "16:00 - 17:00", description: "Namba Yasaka Shrine", category: "sightseeing", mapQuery: "Namba Yasaka Jinja", coordinates: { lat: 34.661, lng: 135.496 } },
+            { time: "17:00 - 19:00", description: "Dotonbori Kaosu", category: "sightseeing", mapQuery: "Dotonbori", coordinates: { lat: 34.668, lng: 135.501 } },
+            { time: "19:30 - 21:30", description: "🎂 Doğum Günü Yemeği (Halal Wagyu Furusato)", category: "food", mapQuery: "Osaka Halal Wagyu Steak Yakiniku Furusato", coordinates: { lat: 34.667, lng: 135.506 } },
+            { time: "21:30 - 22:30", description: "Hozenji Yokocho", category: "sightseeing", mapQuery: "Hozenji Yokocho", coordinates: { lat: 34.668, lng: 135.502 } }
           ]
         },
         {
           date: "22 Mayıs",
           dayName: "Cuma",
-          title: "Tasarım, Deniz & Lego",
+          title: "Tasarımlar & Deniz Dünyası",
           activities: [
-            { time: "09:00 - 12:00", description: "Cup Noodles Museum (Ikeda)", category: "sightseeing", mapQuery: "Cup Noodles Museum Osaka Ikeda", coordinates: { lat: 34.8181, lng: 135.4273 } },
-            { time: "12:00 - 13:00", description: "Tempozan Liman Bölgesine Geçiş", category: "travel", mapQuery: "Tempozan Harbor Village", coordinates: { lat: 34.6563, lng: 135.4308 } },
+            { time: "09:00 - 12:00", description: "Cup Noodles Museum", category: "sightseeing", mapQuery: "Cup Noodles Museum Osaka Ikeda", coordinates: { lat: 34.8181, lng: 135.4273 } },
+            { time: "12:00 - 13:00", description: "Tempozan'a Geçiş", category: "travel", mapQuery: "Tempozan Harbor Village", coordinates: { lat: 34.6563, lng: 135.4308 } },
             { time: "13:00 - 15:00", description: "Kaiyukan Akvaryumu", category: "sightseeing", mapQuery: "Osaka Aquarium Kaiyukan", coordinates: { lat: 34.6545, lng: 135.4289 } },
-            { time: "15:00 - 17:00", description: "Legoland Discovery (Rezervasyon Saati: 15:00)", category: "leisure", mapQuery: "LEGOLAND Discovery Center Osaka", coordinates: { lat: 34.6558, lng: 135.4312 } },
+            { time: "15:00 - 17:00", description: "Legoland Discovery (NET: 15:00)", category: "leisure", mapQuery: "LEGOLAND Discovery Center Osaka", coordinates: { lat: 34.6558, lng: 135.4312 } },
             { time: "17:00 - 18:00", description: "Tempozan Dönme Dolabı", category: "sightseeing", mapQuery: "Tempozan Ferris Wheel", coordinates: { lat: 34.6563, lng: 135.4311 } },
-            { time: "18:00 - 19:30", description: "Pokemon Center DX (Shinsaibashi)", category: "shopping", mapQuery: "Pokemon Center Osaka DX", coordinates: { lat: 34.6738, lng: 135.5019 } },
-            { time: "19:30 - 20:30", description: "HEP FIVE Dönme Dolabı (Umeda)", category: "sightseeing", mapQuery: "HEP FIVE Ferris Wheel", coordinates: { lat: 34.7042, lng: 135.4996 } },
-            { time: "20:30 - 22:00", description: "Akşam Yemeği", category: "food", mapQuery: "Umeda restaurants", coordinates: { lat: 34.7020, lng: 135.5000 } }
+            { time: "18:00 - 19:30", description: "Pokemon Center DX", category: "shopping", mapQuery: "Pokemon Center Osaka DX", coordinates: { lat: 34.6738, lng: 135.5019 } },
+            { time: "19:30 - 20:30", description: "HEP FIVE Dönme Dolabı", category: "sightseeing", mapQuery: "HEP FIVE Ferris Wheel", coordinates: { lat: 34.7042, lng: 135.4996 } },
+            { time: "20:30 - 22:00", description: "Akşam Yemeği", category: "food", coordinates: { lat: 34.7020, lng: 135.5000 } }
           ]
         },
         {
@@ -65,13 +52,26 @@ export const itineraryData: Itinerary = {
           dayName: "Cumartesi",
           title: "Tarih, Geyikler & Nostalji",
           activities: [
-            { time: "09:00 - 11:30", description: "Osaka Kalesi (Road Train ve Kule)", category: "sightseeing", mapQuery: "Osaka Castle", coordinates: { lat: 34.6873, lng: 135.5262 } },
-            { time: "11:30 - 12:30", description: "Nara'ya Yolculuk (Kintetsu Hattı)", category: "travel", mapQuery: "Kintetsu-Nara Station", coordinates: { lat: 34.6830, lng: 135.8277 } },
-            { time: "12:30 - 15:30", description: "Nara Park & Todai-ji (Geyik Besleme ve Dev Buda)", category: "sightseeing", mapQuery: "Nara Park", coordinates: { lat: 34.6851, lng: 135.8430 } },
-            { time: "15:30 - 17:30", description: "Den Den Town (Nipponbashi - Anime ve Oyun)", category: "shopping", mapQuery: "Nipponbashi Denden Town", coordinates: { lat: 34.6611, lng: 135.5061 } },
-            { time: "17:30 - 19:30", description: "Shinsekai & Tsutenkaku Kulesi", category: "sightseeing", mapQuery: "Shinsekai", coordinates: { lat: 34.6525, lng: 135.5063 } },
+            { time: "09:00 - 11:30", description: "Osaka Kalesi", category: "sightseeing", mapQuery: "Osaka Castle", coordinates: { lat: 34.6873, lng: 135.5262 } },
+            { time: "11:30 - 12:30", description: "Nara'ya Yolculuk", category: "travel", mapQuery: "Kintetsu-Nara Station", coordinates: { lat: 34.6830, lng: 135.8277 } },
+            { time: "12:30 - 15:30", description: "Nara Park & Todai-ji", category: "sightseeing", mapQuery: "Nara Park", coordinates: { lat: 34.6851, lng: 135.8430 } },
+            { time: "15:30 - 17:30", description: "Den Den Town", category: "shopping", mapQuery: "Nipponbashi Denden Town", coordinates: { lat: 34.6611, lng: 135.5061 } },
+            { time: "17:30 - 19:30", description: "Shinsekai & Tsutenkaku", category: "sightseeing", mapQuery: "Shinsekai", coordinates: { lat: 34.6525, lng: 135.5063 } },
             { time: "19:30 - 21:00", description: "Akşam Yemeği (Kushikatsu Daruma)", category: "food", mapQuery: "Kushikatsu Daruma Shinsekai", coordinates: { lat: 34.6525, lng: 135.5063 } },
             { time: "21:00 - 22:00", description: "Tombori Nehir Turu", category: "sightseeing", mapQuery: "Tombori River Cruise", coordinates: { lat: 34.6691, lng: 135.5013 } }
+          ]
+        },
+        {
+          date: "24 Mayıs",
+          dayName: "Pazar",
+          title: "Universal Studios & Kyoto Transfer",
+          activities: [
+            { time: "08:00 - 08:30", description: "Bavul Kargolama (Kyoto'ya)", category: "travel" },
+            { time: "08:30 - 09:15", description: "USJ'ye Yolculuk", category: "travel", mapQuery: "Universal-City Station", coordinates: { lat: 34.6678, lng: 135.4385 } },
+            { time: "09:15 - 21:00", description: "Universal Studios Japan", category: "leisure", mapQuery: "Universal Studios Japan", coordinates: { lat: 34.6654, lng: 135.4323 } },
+            { time: "13:00 - 14:00", description: "Öğle Yemeği (USJ İçi)", category: "food", coordinates: { lat: 34.6654, lng: 135.4323 } },
+            { time: "21:00 - 22:15", description: "Kyoto'ya Geçiş", category: "travel", mapQuery: "Kyoto Station", coordinates: { lat: 34.9858, lng: 135.7588 } },
+            { time: "22:15 - 22:45", description: "Kyoto Otel Giriş (REF Kyoto)", category: "checkin", mapQuery: "REF Kyoto Hachijoguchi", coordinates: { lat: 34.9840, lng: 135.7600 } }
           ]
         }
       ]
@@ -80,43 +80,27 @@ export const itineraryData: Itinerary = {
       id: "kyoto",
       name: "KYOTO",
       hotel: "REF Kyoto Hachijoguchi",
-      dates: "24 - 26 Mayıs",
+      dates: "25 - 26 Mayıs",
       imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1600",
       color: "#f59e0b",
       info: {
         weather: "22°C / 14°C",
-        currency: "1 JPY ≈ 0.23 TL",
+        currency: "1 JPY ≈ 0.29 TL",
         transport: "Otobüs / Pasmo",
         timezone: "+6 Saat"
       },
       days: [
         {
-          date: "24 Mayıs",
-          dayName: "Pazar",
-          title: "Doğu Kyoto & Kimono",
-          activities: [
-            { time: "09:30 - 10:30", description: "Kyoto'ya Yolculuk (Osaka'dan JR ile)", category: "travel", mapQuery: "Kyoto Station", coordinates: { lat: 34.9858, lng: 135.7588 } },
-            { time: "10:30 - 11:30", description: "Otel Check-in ve Bavul Bırakma", category: "checkin", mapQuery: "REF Kyoto Hachijoguchi", coordinates: { lat: 34.9840, lng: 135.7600 } },
-            { time: "11:30 - 12:30", description: "Higashiyama'ya Geçiş", category: "travel", mapQuery: "Higashiyama District", coordinates: { lat: 34.9961, lng: 135.7797 } },
-            { time: "12:30 - 13:30", description: "Kimono Kiralama (Rezervasyonlu)", category: "leisure", mapQuery: "Kyoto Kimono Rental", coordinates: { lat: 34.9960, lng: 135.7800 } },
-            { time: "13:30 - 15:30", description: "Kiyomizu-dera Tapınağı", category: "sightseeing", mapQuery: "Kiyomizu-dera", coordinates: { lat: 34.9948, lng: 135.7850 } },
-            { time: "15:30 - 17:00", description: "Sannenzaka & Ninenzaka Sokakları", category: "sightseeing", mapQuery: "Sannenzaka", coordinates: { lat: 34.9972, lng: 135.7818 } },
-            { time: "17:00 - 18:00", description: "Gion & Yasaka Shrine", category: "sightseeing", mapQuery: "Gion", coordinates: { lat: 35.0037, lng: 135.7750 } },
-            { time: "18:00 - 18:30", description: "Kimono İade", category: "leisure", coordinates: { lat: 34.9960, lng: 135.7800 } },
-            { time: "19:00 - 21:00", description: "Akşam Yemeği", category: "food", mapQuery: "Gion restaurants", coordinates: { lat: 35.0030, lng: 135.7720 } }
-          ]
-        },
-        {
           date: "25 Mayıs",
           dayName: "Pazartesi",
-          title: "Batı Kyoto - Bambu & Maymunlar",
+          title: "Kyoto Batı Yakası (Arashiyama)",
           activities: [
             { time: "08:30 - 09:00", description: "Arashiyama'ya Geçiş", category: "travel", mapQuery: "Arashiyama Station", coordinates: { lat: 35.0111, lng: 135.6778 } },
             { time: "09:00 - 10:30", description: "Bambu Ormanı", category: "sightseeing", mapQuery: "Arashiyama Bamboo Grove", coordinates: { lat: 35.0158, lng: 135.6716 } },
             { time: "10:30 - 12:30", description: "Iwatayama Maymun Parkı", category: "sightseeing", mapQuery: "Arashiyama Monkey Park Iwatayama", coordinates: { lat: 35.0094, lng: 135.6766 } },
             { time: "12:30 - 14:00", description: "Öğle Yemeği", category: "food", mapQuery: "Arashiyama restaurants", coordinates: { lat: 35.0110, lng: 135.6770 } },
             { time: "14:00 - 15:30", description: "Tenryu-ji Tapınağı", category: "sightseeing", mapQuery: "Tenryu-ji Temple", coordinates: { lat: 35.0158, lng: 135.6739 } },
-            { time: "15:30 - 16:30", description: "Altın Köşk'e Geçiş", category: "travel", coordinates: { lat: 35.0250, lng: 135.7000 } },
+            { time: "15:30 - 16:30", description: "Altın Köşk'e Ulaşım", category: "travel", coordinates: { lat: 35.0250, lng: 135.7000 } },
             { time: "16:30 - 17:30", description: "Kinkaku-ji (Altın Köşk)", category: "sightseeing", mapQuery: "Kinkaku-ji", coordinates: { lat: 35.0394, lng: 135.7292 } },
             { time: "18:30 - 20:30", description: "Akşam Yemeği", category: "food", coordinates: { lat: 35.0100, lng: 135.7600 } }
           ]
