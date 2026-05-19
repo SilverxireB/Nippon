@@ -68,37 +68,17 @@ export const CurrencyConverter: React.FC = () => {
               <div className="p-8 sm:p-10 overflow-y-auto">
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="absolute right-6 top-6 p-2 text-gray-300 hover:text-black transition-colors"
+                  className="absolute right-6 top-6 p-2 text-gray-300 hover:text-black transition-colors z-50"
                 >
                   <X className="w-8 h-8" />
                 </button>
 
-                <div className="flex items-center gap-4 mb-10">
-                  <div className="bg-red-600 p-4 rounded-3xl shadow-lg shadow-red-200 text-white">
-                    <ArrowRightLeft className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-black tracking-tighter uppercase leading-none">KUR HESAPLA</h2>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] tabular-nums">
-                        1 TRY = {rate.toFixed(2)} JPY
-                      </span>
-                      <button 
-                        onClick={fetchRate}
-                        className={`text-red-500 hover:rotate-180 transition-all duration-500 ${isRefreshing ? 'animate-spin' : ''}`}
-                      >
-                        <RefreshCw className="w-3 h-3" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  {/* Grid Layout for Input and Result */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-                    {/* Input Field */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">
+                <div className="space-y-8">
+                  {/* Side-by-Side Area at the top */}
+                  <div className="flex gap-3 items-end">
+                    {/* JPY Input - Left */}
+                    <div className="flex-1 space-y-2">
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-3">
                         JAPON YENİ (¥)
                       </label>
                       <div className="relative">
@@ -109,56 +89,50 @@ export const CurrencyConverter: React.FC = () => {
                           value={amount}
                           onChange={e => setAmount(e.target.value)}
                           placeholder="0"
-                          className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-6 text-2xl font-black focus:ring-4 focus:ring-red-100 outline-none transition-all placeholder:text-gray-200 tabular-nums"
+                          className="w-full bg-gray-50 border-none rounded-[20px] px-5 py-6 text-2xl font-black focus:ring-4 focus:ring-red-100 outline-none transition-all placeholder:text-gray-200 tabular-nums shadow-inner"
                         />
-                        <div className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-gray-300 text-xl">
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 font-black text-gray-200 text-lg">
                           ¥
                         </div>
                       </div>
                     </div>
 
-                    {/* Result Card */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">
+                    {/* TRY Result - Right */}
+                    <div className="flex-1 space-y-2">
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-3">
                         KARŞILIĞI (₺)
                       </label>
                       <AnimatePresence mode="wait">
-                        {amount ? (
-                          <motion.div 
-                            key={`result-${isTaxFree}`}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="bg-black text-white p-6 rounded-[24px] text-center shadow-xl shadow-black/10 flex flex-col justify-center min-h-[84px]"
-                          >
-                            <div className="text-[8px] font-black text-gray-500 uppercase tracking-[0.2em] mb-1 leading-none">
-                              {isTaxFree ? 'VERGİ İADESİ DAHİL' : 'TAHMİNİ'}
-                            </div>
-                            <div className="text-3xl font-black tracking-tighter tabular-nums overflow-hidden text-ellipsis">
-                              {result.toLocaleString('tr-TR', { maximumFractionDigits: 1 })}
-                              <span className="text-sm ml-1.5 text-gray-500 font-bold uppercase">₺</span>
-                            </div>
-                          </motion.div>
-                        ) : (
-                          <div className="bg-gray-50 p-6 rounded-[24px] border-2 border-dashed border-gray-100 text-center flex items-center justify-center min-h-[84px]">
-                            <p className="text-[10px] font-black text-gray-200 uppercase tracking-[0.2em]">Sonuç</p>
+                        <motion.div 
+                          key={`result-${isTaxFree}`}
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="bg-black text-white p-5 rounded-[20px] text-center shadow-xl shadow-black/20 flex flex-col justify-center min-h-[76px]"
+                        >
+                          <div className="text-[7px] font-black text-gray-500 uppercase tracking-[0.2em] mb-1 leading-none">
+                            {isTaxFree ? 'TAX FREE NET' : 'TAHMİNİ'}
                           </div>
-                        )}
+                          <div className="text-2xl font-black tracking-tighter tabular-nums overflow-hidden text-ellipsis whitespace-nowrap">
+                            {amount ? result.toLocaleString('tr-TR', { maximumFractionDigits: 1 }) : '0'}
+                            <span className="text-xs ml-1 text-red-500 font-bold uppercase shrink-0">₺</span>
+                          </div>
+                        </motion.div>
                       </AnimatePresence>
                     </div>
                   </div>
 
-                  {/* Tax Free Toggle */}
+                  {/* Tax Free Toggle - Clearly Below */}
                   <button 
                     onClick={() => setIsTaxFree(!isTaxFree)}
-                    className={`w-full flex items-center justify-between p-4 rounded-[24px] border-2 transition-all ${isTaxFree ? 'bg-red-50 border-red-200' : 'bg-white border-gray-100 hover:border-red-100'}`}
+                    className={`w-full flex items-center justify-between p-4 rounded-[20px] border-2 transition-all ${isTaxFree ? 'bg-red-50 border-red-200 shadow-sm' : 'bg-white border-gray-100 hover:border-red-100'}`}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className={`p-3 rounded-2xl ${isTaxFree ? 'bg-red-600 text-white' : 'bg-gray-100 text-gray-400'}`}>
-                        <Percent className="w-5 h-5" />
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-xl ${isTaxFree ? 'bg-red-600 text-white' : 'bg-gray-100 text-gray-400'}`}>
+                        <Percent className="w-4 h-4" />
                       </div>
                       <div className="text-left">
-                        <span className="block text-[10px] font-black text-gray-400 uppercase tracking-[0.1em] leading-none mb-1.5">Tax Included Fiyattan</span>
-                        <span className="block font-black text-sm uppercase tracking-tight">TAX FREE (%10 DÜŞ)</span>
+                        <span className="block text-[8px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Vergi İadesi</span>
+                        <span className="block font-black text-xs uppercase tracking-tight">TAX FREE (%10 DÜŞ)</span>
                       </div>
                     </div>
                     <div className={`w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all ${isTaxFree ? 'bg-red-600 border-red-600' : 'border-gray-200'}`}>
@@ -166,9 +140,20 @@ export const CurrencyConverter: React.FC = () => {
                     </div>
                   </button>
 
-                  <p className="text-[9px] font-bold text-center text-gray-300 uppercase tracking-widest pt-4">
-                    Kur Verisi: Market Ortalaması (Real-time)
-                  </p>
+                  <div className="flex items-center justify-between px-4 pt-4 border-t border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                      <span className="text-[9px] font-black text-gray-300 uppercase tracking-widest tabular-nums">1 TRY = {rate.toFixed(2)} JPY</span>
+                    </div>
+                    <button 
+                      onClick={fetchRate}
+                      disabled={isRefreshing}
+                      className="flex items-center gap-2 text-[9px] font-black text-red-500 uppercase tracking-widest hover:bg-red-50 px-3 py-2 rounded-full transition-all"
+                    >
+                      <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin' : ''}`} />
+                      KURU GÜNCELLE
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>
