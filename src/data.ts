@@ -218,29 +218,3 @@ export const itineraryData: Itinerary = {
     }
   ]
 };
-
-export const budgetData = {
-  targetBudget: 400000,
-  exchangeRate: 3.30, // 1 TL = 3.30 JPY
-  items: [
-    // 1 SABIT GIDERLER
-    { id: 'f1', category: 'fixed', description: 'Uçak Bileti', amount: 78588, isSpent: true },
-    { id: 'f2', category: 'fixed', description: 'Yurt Dışı Çıkış Harcı', amount: 3750, isSpent: true },
-    { id: 'f3', category: 'fixed', description: 'İstanbul Transferi (Otopark vb.)', amount: 10285, isSpent: true },
-    { id: 'f4', category: 'fixed', description: 'İstanbul\'a Gidiş (Benzin + Otoyol)', amount: 4000, isSpent: true },
-    { id: 'f5', category: 'fixed', description: 'Osaka Konaklama (Vessel Inn Namba)', amount: 30362, isSpent: true },
-    { id: 'f6', category: 'fixed', description: 'Kyoto Konaklama (REF Kyoto Hachijoguchi)', amount: 15600, isSpent: true },
-    { id: 'f7', category: 'fixed', description: 'Tokyo Konaklama (Daiwa Roynet Shimbashi)', amount: 39099, isSpent: true },
-    
-    // 2 AKTIVITE VE ARA ULASIM
-    { id: 'a1', category: 'activity', description: 'Kyoto to Tokyo Shinkansen (Nozomi 16)', amount: 11650.54, isSpent: true },
-    { id: 'a2', category: 'activity', description: 'Osaka Amazing Pass (2 Günlük 3 Kişi)', amount: 4161, isSpent: true },
-    { id: 'a3', category: 'activity', description: 'USJ 1 Day Studio Pass (2 Yetişkin Klook)', amount: 4016, isSpent: true },
-    { id: 'a4', category: 'activity', description: 'USJ 1 Day Studio Pass (1 Çocuk Doğa)', amount: 1664, isSpent: true },
-    { id: 'a5', category: 'activity', description: 'USJ Express Pass 4 (3 Kişi)', amount: 11568, isSpent: true },
-    { id: 'a6', category: 'activity', description: 'Tokyo Disneyland 1 Day Passport (3 Kişi)', amount: 6617.15, isSpent: true },
-    { id: 'a7', category: 'activity', description: 'teamLab Biovortex Kyoto (3 Kişi)', amount: 3519, isSpent: true },
-    { id: 'a8', category: 'activity', description: 'teamLab Planets Tokyo (3 Kişi)', amount: 3298, isSpent: true },
-    { id: 'a9', category: 'activity', description: 'Shibuya Sky ve Zoo Tahmini Bütçe', amount: 2500, isSpent: false },
-  ]
-};

@@ -1,0 +1,30 @@
+{
+  "entities": {
+    "BudgetItem": {
+      "title": "Budget Item",
+      "description": "An individual entry for a trip expense or planned budget.",
+      "type": "object",
+      "properties": {
+        "description": { "type": "string", "description": "Description of the expense" },
+        "amount": { "type": "number", "description": "Amount in TL" },
+        "amountJpy": { "type": "number", "description": "Amount in JPY (optional)" },
+        "category": { 
+          "type": "string", 
+          "enum": ["fixed", "activity", "spending", "accommodation", "transport", "food", "shopping", "other"] 
+        },
+        "isSpent": { "type": "boolean", "description": "Whether the amount is already spent" },
+        "date": { "type": "string", "format": "date", "description": "Date of the transaction" },
+        "ownerId": { "type": "string", "description": "UID of the user who owns this record" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["description", "amount", "category", "isSpent", "date", "ownerId", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/budgetItems/{itemId}": {
+      "schema": "BudgetItem",
+      "description": "Individual budget items for a user."
+    }
+  }
+}

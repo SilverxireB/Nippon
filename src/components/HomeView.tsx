@@ -9,21 +9,6 @@ interface HomeViewProps {
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({ itinerary, onCityChange }) => {
-  const [timeLeft, setTimeLeft] = React.useState({ days: 0, hours: 0 });
-
-  React.useEffect(() => {
-    const target = new Date('2026-05-20T00:00:00').getTime();
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const diff = target - now;
-      setTimeLeft({
-        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
       <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
@@ -37,22 +22,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ itinerary, onCityChange }) =
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-center gap-4 mb-12"
-          >
-            <div className="flex flex-col items-center">
-              <span className="text-4xl sm:text-6xl font-black text-red-600">{timeLeft.days}</span>
-              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Gün</span>
-            </div>
-            <div className="h-10 w-px bg-gray-200"></div>
-            <div className="flex flex-col items-center">
-              <span className="text-4xl sm:text-6xl font-black text-gray-900">{timeLeft.hours}</span>
-              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Saat</span>
-            </div>
-          </motion.div>
-
           <motion.h1 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

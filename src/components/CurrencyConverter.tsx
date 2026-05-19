@@ -1,161 +1,175 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calculator, X, RefreshCw, Info, TrendingUp } from 'lucide-react';
+import { Calculator, X, ArrowRightLeft, RefreshCw, Check, Percent } from 'lucide-react';
 
 export const CurrencyConverter: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [jpy, setJpy] = useState<string>('');
-  const [rate, setRate] = useState<number>(0.29); 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isTaxFree, setIsTaxFree] = useState(true);
+  const [amount, setAmount] = useState<string>('');
+  const [rate, setRate] = useState<number>(3.49); // Default based on user feedback
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isTaxFree, setIsTaxFree] = useState(false);
 
-  // Gerçek zamanlı kur çekme
   const fetchRate = async () => {
-    setIsLoading(true);
+    setIsRefreshing(true);
     try {
-      const response = await fetch('https://open.er-api.com/v6/latest/JPY');
+      const response = await fetch('https://open.er-api.com/v6/latest/TRY');
       const data = await response.json();
-      if (data && data.rates && data.rates.TRY) {
-        setRate(data.rates.TRY);
+      if (data.rates && data.rates.JPY) {
+        setRate(data.rates.JPY);
       }
     } catch (error) {
-      console.error('Kur çekilemedi:', error);
+      console.error('Exchange rate fetch failed:', error);
     } finally {
-      setIsLoading(false);
+      setIsRefreshing(false);
     }
   };
 
   useEffect(() => {
-    if (isOpen) fetchRate();
-  }, [isOpen]);
+    fetchRate();
+  }, []);
 
-  const tryValue = jpy ? (parseFloat(jpy) * rate).toFixed(2) : '0.00';
-  const taxFreeValue = jpy ? (parseFloat(jpy) * 0.9 * rate).toFixed(2) : '0.00';
-  const savings = jpy ? (parseFloat(tryValue) - parseFloat(taxFreeValue)).toFixed(2) : '0.00';
+  // Standard Calculation (JPY to TRY only)
+  const getCalculation = () => {
+    const val = parseFloat(amount) || 0;
+    if (val === 0) return 0;
+
+    let processedAmount = val;
+    
+    // Tax Free logic: If you enter 1100 JPY (Tax included), Tax-free is 1000 JPY.
+    if (isTaxFree) {
+      processedAmount = val / 1.10;
+    }
+
+    return processedAmount / rate;
+  };
+
+  const result = getCalculation();
 
   return (
     <>
-      {/* Floating Button */}
-      <button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-red-600 text-white rounded-full shadow-2xl flex items-center justify-center z-[60] hover:scale-110 active:scale-95 transition-all"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-red-600 text-white rounded-full shadow-2xl flex items-center justify-center z-40 border-4 border-white"
       >
         <Calculator className="w-6 h-6" />
-      </button>
+      </motion.button>
 
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/60 backdrop-blur-md"
-              onClick={() => setIsOpen(false)}
-            />
-            
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="bg-white w-full max-w-md rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 pb-10 sm:pb-8 shadow-2xl overflow-hidden relative max-h-[96vh] flex flex-col"
-              onClick={e => e.stopPropagation()}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="w-full max-w-md bg-white rounded-[40px] shadow-2xl relative flex flex-col max-h-[95vh]"
             >
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-amber-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-black text-gray-900 leading-tight italic">Kur Hesaplayıcı</h3>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Anlık Veri (API)</p>
-                  </div>
-                </div>
+              <div className="p-8 sm:p-10 overflow-y-auto">
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-black transition-colors"
+                  className="absolute right-6 top-6 p-2 text-gray-300 hover:text-black transition-colors"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-8 h-8" />
                 </button>
-              </div>
 
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="relative group">
-                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1.5 ml-1">Tutarı Gir</label>
-                    <div className="relative">
-                      <input 
-                        type="number"
-                        inputMode="decimal"
-                        value={jpy}
-                        onChange={(e) => setJpy(e.target.value)}
-                        placeholder="0"
-                        className="w-full bg-gray-50 border-2 border-transparent group-hover:bg-white group-hover:border-red-100 rounded-2xl py-4 px-5 text-2xl font-display font-black text-gray-900 transition-all outline-none focus:bg-white focus:border-red-500 shadow-sm"
-                      />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 font-black text-gray-300">¥</span>
+                <div className="flex items-center gap-4 mb-10">
+                  <div className="bg-red-600 p-4 rounded-3xl shadow-lg shadow-red-200 text-white">
+                    <ArrowRightLeft className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-black tracking-tighter uppercase leading-none">KUR HESAPLA</h2>
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] tabular-nums">
+                        1 TRY = {rate.toFixed(2)} JPY
+                      </span>
+                      <button 
+                        onClick={fetchRate}
+                        className={`text-red-500 hover:rotate-180 transition-all duration-500 ${isRefreshing ? 'animate-spin' : ''}`}
+                      >
+                        <RefreshCw className="w-3 h-3" />
+                      </button>
                     </div>
                   </div>
+                </div>
 
-                  <div className="relative overflow-hidden group">
-                    <motion.div 
-                      layout
-                      className="bg-gray-900 rounded-[20px] p-4 text-white h-full flex flex-col justify-center border border-white/5"
-                    >
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-[8px] font-bold text-white/40 uppercase tracking-widest">Net (₺)</span>
-                        <div className="flex items-center gap-1 bg-white/10 px-1 py-0.5 rounded-full">
-                          <span className="text-[7px] font-bold">1¥≈{rate.toFixed(3)}₺</span>
+                <div className="space-y-6">
+                  {/* Grid Layout for Input and Result */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                    {/* Input Field */}
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">
+                        JAPON YENİ (¥)
+                      </label>
+                      <div className="relative">
+                        <input 
+                          type="number"
+                          inputMode="decimal"
+                          autoFocus
+                          value={amount}
+                          onChange={e => setAmount(e.target.value)}
+                          placeholder="0"
+                          className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-6 text-2xl font-black focus:ring-4 focus:ring-red-100 outline-none transition-all placeholder:text-gray-200 tabular-nums"
+                        />
+                        <div className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-gray-300 text-xl">
+                          ¥
                         </div>
                       </div>
-                      
-                      <div className="flex items-baseline gap-0.5">
-                        <span className="text-2xl font-black tracking-tight">
-                          {isTaxFree ? taxFreeValue : tryValue}
-                        </span>
-                        <span className="text-sm font-bold text-white/60">₺</span>
-                      </div>
-                    </motion.div>
-                  </div>
-                </div>
-
-                {isTaxFree && parseFloat(savings) > 0 && (
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 text-[10px] font-bold text-amber-600 flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="w-3 h-3" />
-                      <span>TAX-FREE KAZANCIN:</span>
                     </div>
-                    <span className="font-black">₺{savings}</span>
-                  </motion.div>
-                )}
 
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                  <div className="flex items-center gap-2">
-                    <Info className="w-4 h-4 text-amber-600" />
-                    <div>
-                      <span className="text-xs font-bold text-gray-700 block leading-none mb-0.5">Tax-Free</span>
-                      <span className="text-[9px] text-gray-400 font-medium uppercase tracking-tighter">%10 İndirim Uygula</span>
+                    {/* Result Card */}
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">
+                        KARŞILIĞI (₺)
+                      </label>
+                      <AnimatePresence mode="wait">
+                        {amount ? (
+                          <motion.div 
+                            key={`result-${isTaxFree}`}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="bg-black text-white p-6 rounded-[24px] text-center shadow-xl shadow-black/10 flex flex-col justify-center min-h-[84px]"
+                          >
+                            <div className="text-[8px] font-black text-gray-500 uppercase tracking-[0.2em] mb-1 leading-none">
+                              {isTaxFree ? 'VERGİ İADESİ DAHİL' : 'TAHMİNİ'}
+                            </div>
+                            <div className="text-3xl font-black tracking-tighter tabular-nums overflow-hidden text-ellipsis">
+                              {result.toLocaleString('tr-TR', { maximumFractionDigits: 1 })}
+                              <span className="text-sm ml-1.5 text-gray-500 font-bold uppercase">₺</span>
+                            </div>
+                          </motion.div>
+                        ) : (
+                          <div className="bg-gray-50 p-6 rounded-[24px] border-2 border-dashed border-gray-100 text-center flex items-center justify-center min-h-[84px]">
+                            <p className="text-[10px] font-black text-gray-200 uppercase tracking-[0.2em]">Sonuç</p>
+                          </div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
+
+                  {/* Tax Free Toggle */}
                   <button 
                     onClick={() => setIsTaxFree(!isTaxFree)}
-                    className={`w-12 h-6 rounded-full transition-colors relative ${isTaxFree ? 'bg-amber-500' : 'bg-gray-200'}`}
+                    className={`w-full flex items-center justify-between p-4 rounded-[24px] border-2 transition-all ${isTaxFree ? 'bg-red-50 border-red-200' : 'bg-white border-gray-100 hover:border-red-100'}`}
                   >
-                    <motion.div 
-                      animate={{ x: isTaxFree ? 26 : 2 }}
-                      className="absolute top-1 w-4 h-4 bg-white rounded-full shadow-sm"
-                    />
+                    <div className="flex items-center gap-4">
+                      <div className={`p-3 rounded-2xl ${isTaxFree ? 'bg-red-600 text-white' : 'bg-gray-100 text-gray-400'}`}>
+                        <Percent className="w-5 h-5" />
+                      </div>
+                      <div className="text-left">
+                        <span className="block text-[10px] font-black text-gray-400 uppercase tracking-[0.1em] leading-none mb-1.5">Tax Included Fiyattan</span>
+                        <span className="block font-black text-sm uppercase tracking-tight">TAX FREE (%10 DÜŞ)</span>
+                      </div>
+                    </div>
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all ${isTaxFree ? 'bg-red-600 border-red-600' : 'border-gray-200'}`}>
+                      {isTaxFree && <Check className="w-4 h-4 text-white stroke-[4]" />}
+                    </div>
                   </button>
-                </div>
-              </div>
 
-              <div className="mt-8 pt-6 border-t border-gray-50 flex items-center justify-center gap-2 text-[10px] font-bold text-gray-300 uppercase tracking-widest">
-                <RefreshCw className="w-3 h-3" />
-                Her açılışta güncellenir
+                  <p className="text-[9px] font-bold text-center text-gray-300 uppercase tracking-widest pt-4">
+                    Kur Verisi: Market Ortalaması (Real-time)
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
